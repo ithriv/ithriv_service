@@ -18,8 +18,10 @@ before_install:
 install:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     cd docker/ ;
-    docker build --no-cache -t databio/lolaweb:latest . || exit 1;
-    docker push databio/lolaweb:latest || exit 1;
+    # docker tag local-image:tagname new-repo:tagname
+    # docker push new-repo:tagname
+    docker build --no-cache -t ithriv/ithriv_service:latest . || exit 1;
+    docker push ithriv/ithriv_service:latest || exit 1;
     # aws sqs send-message --queue-url 'https://queue.amazonaws.com/474683445819/lola-updates' --message-body $TRAVIS_BRANCH || exit 1;
     fi
   # - if [ "$TRAVIS_BRANCH" == "staging" ]; then
