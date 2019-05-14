@@ -5,7 +5,7 @@ RUN mkdir -p /home/.aws
 RUN mkdir -p /etc/private/ithriv
 RUN mkdir -p $APP_LOC
 WORKDIR $APP_LOC
-ADD ./requirements.txt .
+ADD ../requirements.txt .
 RUN pip3 install -r requirements.txt
 ADD ../. .
 EXPOSE 80
