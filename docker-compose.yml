@@ -53,4 +53,3 @@ services:
     depends_on:
       - ithriv_es
       - ithriv_db
-
