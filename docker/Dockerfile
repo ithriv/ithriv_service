@@ -1,4 +1,5 @@
 FROM python:3.7.3-stretch
+LABEL maintainer="rkc7h@virginia.edu"
 ENV APP_LOC /ithriv_service
 RUN mkdir -p /root/.aws
 RUN mkdir -p /home/.aws
