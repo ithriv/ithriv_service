@@ -20,6 +20,7 @@ install:
     docker build -f docker/Dockerfile --no-cache -t ithriv/ithriv_service:latest . || exit 1 ;
     docker push ithriv/ithriv_service:latest || exit 1 ;
     docker tag ithriv/ithriv_service:latest ithriv/ithriv_service:"$TRAVIS_BRANCH" || exit 1 ;
+    docker push ithriv/ithriv_service:"$TRAVIS_BRANCH" || exit 1 ;
     fi
 
 
