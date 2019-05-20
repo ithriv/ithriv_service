@@ -19,6 +19,7 @@ install:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker build -f docker/Dockerfile --no-cache -t ithriv/ithriv_service:latest . || exit 1 ;
     docker push ithriv/ithriv_service:latest || exit 1 ;
+    docker tag "$TRAVIS_BRANCH" ithriv/ithriv_service:latest
     docker push ithriv/ithriv_service:"$TRAVIS_BRANCH" || exit 1 ;
     fi
 
