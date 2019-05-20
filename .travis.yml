@@ -1,8 +1,7 @@
 branches:
   only:
   - master
-  - staging
-  - dev
+  - qa
 
 language: bash
 
