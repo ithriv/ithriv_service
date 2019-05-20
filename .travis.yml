@@ -21,6 +21,7 @@ install:
     docker tag ithriv/ithriv_service:"$TRAVIS_BRANCH" ithriv/ithriv_service:latest || exit 1 ;
     docker push ithriv/ithriv_service:latest || exit 1 ;
     fi
+  - aws sqs send-message --queue-url 'https://queue.amazonaws.com/474683445819/ithriv-updates' --message-body ithriv/ithriv_service:$TRAVIS_BRANCH || exit 1;
 
 
 notifications:
