@@ -2,9 +2,9 @@ from config.base import *
 
 CORS_ENABLED = True
 
-SQLALCHEMY_LOG_LEVEL = logging.ERROR
-ALEMBIC_PRINT_SQL = False
-
+SQLALCHEMY_LOG_LEVEL = logging.INFO
+ALEMBIC_PRINT_SQL = True
+DEBUG = True
 
 # SQLALCHEMY/ALEMBIC Settings
 
@@ -16,3 +16,8 @@ ALEMBIC_PRINT_SQL = False
 
 # Single Signon configuration Settings
 SSO_ATTRIBUTE_MAP['uid'] = (False, 'uid')
+
+API_URL = 'http://localhost:5000'
+SITE_URL = 'http://localhost'
+FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
+    SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
