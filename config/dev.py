@@ -17,7 +17,7 @@ DEBUG = True
 # Single Signon configuration Settings
 SSO_ATTRIBUTE_MAP['uid'] = (False, 'uid')
 
-API_URL = 'http://localhost:5000'
-SITE_URL = 'http://localhost'
+API_URL = 'http://dev.ithriv.org:5000'
+SITE_URL = 'http://dev.ithriv.org:4200'
 FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
     SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
