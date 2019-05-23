@@ -1,6 +1,8 @@
 FROM python:3.7.3-stretch
 LABEL maintainer="rkc7h@virginia.edu"
 ENV APP_LOC /ithriv_service
+RUN mkdir -p /root/.aws
+RUN mkdir -p /home/.aws
 RUN mkdir -p /etc/private/ithriv
 RUN mkdir -p $APP_LOC
 WORKDIR $APP_LOC
@@ -18,7 +20,4 @@ ADD ./nginx_app.conf /etc/nginx/sites-available/default
 ADD ./supervisor_app.conf /etc/supervisor/conf.d/supervisor_app.conf
 ADD ./supervisor_app.conf /etc/supervisor/supervisord.conf
 ADD ./. .
-VOLUME ["/etc/private/ithriv","~/.aws"]
-WORKDIR /home/
-RUN ln -sf ~/.aws .
 CMD ["supervisord"]
