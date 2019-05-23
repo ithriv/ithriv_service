@@ -16,9 +16,9 @@ before_install:
 
 install:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
-    cd instance
-    ln -sf ../config/dev.py settings.py
-    cd ../
+    cd instance || exit 1 ;
+    ln -sf ../config/dev.py settings.py || exit 1 ;
+    cd ../ || exit 1 ;
     fi
   - docker build -f docker/Dockerfile --no-cache -t ithriv/ithriv_service:"$TRAVIS_BRANCH" . || exit 1 ;
   - docker push ithriv/ithriv_service:"$TRAVIS_BRANCH" || exit 1 ;
