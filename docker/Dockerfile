@@ -2,8 +2,6 @@ FROM python:3.7.3-stretch
 LABEL maintainer="rkc7h@virginia.edu"
 ENV APP_LOC /ithriv_service
 RUN mkdir -p ~/.aws/
-WORKDIR /root/
-RUN ln -sf ~/.aws .
 WORKDIR /home/
 RUN ln -sf ~/.aws .
 RUN mkdir -p /etc/private/ithriv
