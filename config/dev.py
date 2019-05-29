@@ -1,6 +1,6 @@
 from config.base import *
 
-CORS_ENABLED = False
+CORS_ENABLED = True
 
 SQLALCHEMY_LOG_LEVEL = logging.INFO
 ALEMBIC_PRINT_SQL = True
