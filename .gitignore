@@ -2,3 +2,5 @@
 env
 *.pyc
 /app.sock
+/.pydevproject
+/supervisord.log
