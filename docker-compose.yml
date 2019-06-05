@@ -33,6 +33,15 @@ services:
       - ithriv_network
     depends_on:
       - ithriv_es
+  postfix:
+    image: boky/postfix
+    container_name: postfix
+    environment:
+      - ALLOWED_SENDER_DOMAINS=ithriv.org
+    # ports:
+    #   - 1587:587
+    networks:
+      - ithriv_network
   ithriv_service:
     build:
       context: .
@@ -46,10 +55,11 @@ services:
       - ./supervisor_app.conf:/etc/supervisor/conf.d/supervisor_app.conf
       - ./supervisor_app.conf:/etc/supervisor/supervisord.conf
     container_name: ithriv_service
-    ports:
-      - 5000:5000
+    # ports:
+    #   - 5000:5000
     networks:
       - ithriv_network
     depends_on:
       - ithriv_es
       - ithriv_db
+      - postfix

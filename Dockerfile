@@ -7,8 +7,7 @@ RUN mkdir -p $APP_LOC
 WORKDIR $APP_LOC
 ADD ./requirements.txt .
 RUN pip3 install -r requirements.txt
-EXPOSE 80
-EXPOSE 443
+EXPOSE 5000
 RUN apt-get update
 RUN apt-get install -y libmagic-dev
 RUN apt-get install -y nginx

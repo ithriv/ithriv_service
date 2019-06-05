@@ -2,11 +2,10 @@ from config.base import *
 
 CORS_ENABLED = True
 
+# SQLALCHEMY/ALEMBIC Settings
 SQLALCHEMY_LOG_LEVEL = logging.INFO
 ALEMBIC_PRINT_SQL = True
 DEBUG = True
-
-# SQLALCHEMY/ALEMBIC Settings
 
 # Amazon S3 Bucket for storing images.
 

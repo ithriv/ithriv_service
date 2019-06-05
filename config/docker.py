@@ -26,7 +26,7 @@ ELASTIC_SEARCH['hosts'] = ["elasticsearch"]
 SSO_ATTRIBUTE_MAP['uid'] = (False, 'uid')
 SSO_DEVELOPMENT_EPPN = 'ithriv_admin@virginia.edu'
 
-API_URL = 'http://localhost:5000'
+API_URL = 'http://localhost'
 SITE_URL = 'http://localhost'
 FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
     SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
