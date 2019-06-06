@@ -15,11 +15,12 @@ before_install:
   - echo $DOCKER_PASSWORD | docker login -u "$DOCKER_USERNAME" --password-stdin 
 
 install:
-  - if [ "$TRAVIS_BRANCH" in ("master","uat") ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" or "$TRAVIS_BRANCH" == "uat" ]; then
     export ES_ENV_HOST="search-uvaedplatform-staging-mvlcxpy4wbc3csxju6cccbsmzy.us-east-1.es.amazonaws.com" || exit 1 ;
-  - if [ "$TRAVIS_BRANCH" in ("prod") ]; then
+    else if[ "$TRAVIS_BRANCH"  == "prod") ]; then
     export ES_ENV_HOST="search-uvaedplatform-wnme5klsj632ii3zr5hgho46cu.us-east-1.es.amazonaws.com" || exit 1 ;
-  - if [ "$TRAVIS_BRANCH" in ("master","uat","prod") ]; then
+    fi
+  - if [ "$TRAVIS_BRANCH" == "master" or "$TRAVIS_BRANCH" == "uat" or "$TRAVIS_BRANCH" == "prod"]; then
     export BUILD_ENV="$TRAVIS_BRANCH" || exit 1 ;
     docker build --build-arg BUILD_ENV --build-arg ES_ENV_HOST -f docker/Dockerfile --no-cache -t ithriv/ithriv_service:"$TRAVIS_BRANCH" . || exit 1 ;
     docker push ithriv/ithriv_service:"$TRAVIS_BRANCH" || exit 1 ;
