@@ -12,13 +12,13 @@ DEBUG = True
 # SQLALCHEMY/ALEMBIC Settings
 SQLALCHEMY_DATABASE_URI = ''.join(['postgresql://',
                                    conn_info["RDBMS"]["CLIENT_ID"], ':', conn_info["RDBMS"]["CLIENT_SECRET"],
-                                   '@postgres', ':', conn_info["RDBMS"]["PORT"],
+                                   '@ithriv_db', ':', conn_info["RDBMS"]["PORT"],
                                    ''.join(['/ithriv-', conn_info['ENV']])])
 
 # Amazon S3 Bucket for storing images.
 
 # Elastic Search Settings
-ELASTIC_SEARCH['hosts'] = ["elasticsearch"]
+ELASTIC_SEARCH['hosts'] = ["ithriv_es"]
 
 # SMTP Email Settings
 

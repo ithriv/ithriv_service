@@ -1,5 +1,7 @@
 FROM python:3.7.3-stretch
 LABEL maintainer="rkc7h@virginia.edu"
+ARG BUILD_ENV
+ARG ES_ENV_HOST
 ENV APP_LOC /ithriv_service
 RUN mkdir -p /root/.aws
 RUN mkdir -p /home/.aws
@@ -20,4 +22,5 @@ ADD ./nginx_app.conf /etc/nginx/sites-available/default
 ADD ./supervisor_app.conf /etc/supervisor/conf.d/supervisor_app.conf
 ADD ./supervisor_app.conf /etc/supervisor/supervisord.conf
 ADD ./. .
-CMD ["supervisord"]
+RUN cd instance && ln -sf ../config/$BUILD_ENV.py settings.py && cd ../
+CMD ["./wait-for-it.sh", "$ES_ENV_HOST:9200", "--", "supervisord"]
