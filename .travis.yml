@@ -15,8 +15,6 @@ before_install:
   - pip install --user awscli
   - export PATH=$PATH:$HOME/.local/bin
   - echo $DOCKER_PASSWORD | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - git config --global user.email "rkc7h@virginia.edu"
-  - git config --global user.name "rkc7h"
 
 install:
   - if [ "$TRAVIS_BRANCH" == "develop" ]; then
