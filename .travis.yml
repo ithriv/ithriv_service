@@ -17,10 +17,10 @@ before_install:
   - echo $DOCKER_PASSWORD | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 install:
-  - export ES_ENV_HOST="search-uvaedplatform-staging-mvlcxpy4wbc3csxju6cccbsmzy.us-east-1.es.amazonaws.com" || exit 1 ;
+  - export ES_ENV_HOST="ithriv_es" || exit 1 ;
   - export BUILD_ENV="uat" || exit 1 ;
   - if [ "$TRAVIS_BRANCH" == "develop" ]; then
-    export ES_ENV_HOST="search-uvaedplatform-staging-mvlcxpy4wbc3csxju6cccbsmzy.us-east-1.es.amazonaws.com" || exit 1 ;
+    export ES_ENV_HOST="ithriv_es" || exit 1 ;
     export BUILD_ENV="dev" || exit 1 ;
     fi
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
