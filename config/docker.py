@@ -25,6 +25,7 @@ ELASTIC_SEARCH['hosts'] = ["ithriv_es"]
 # Single Signon configuration Settings
 SSO_ATTRIBUTE_MAP['uid'] = (False, 'uid')
 SSO_DEVELOPMENT_EPPN = 'ithriv_admin@virginia.edu'
+MAIL_CONSULT_RECIPIENT = 'rkc7h@virginia.edu'
 
 API_URL = 'http://localhost'
 SITE_URL = 'http://localhost'
