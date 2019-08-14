@@ -21,7 +21,7 @@ from app.resources.SessionStatusEndpoint import SessionStatusEndpoint
 from app.resources.Tracking import tracking_blueprint
 from app.resources.ApprovalRequest import approval_blueprint
 from app.resources.ConsultRequest import consult_blueprint
-from app.resources.TypeEndpoint import TypeEndpoint, TypeListEndpoint
+from app.resources.TypeEndpoint import TypeEndpoint, TypeListEndpoint, SegmentListEndpoint
 from app.resources.UserEndpoint import UserEndpoint, UserListEndpoint
 from app.resources.FavoriteEndpoint import UserFavoriteEndpoint, FavoriteEndpoint, FavoriteListEndpoint
 
@@ -58,6 +58,7 @@ endpoints = [(ResourceListEndpoint, '/resource'),
              (InstitutionAvailabilityListEndpoint,
               '/institution/availability'), (TypeEndpoint, '/type/<id>'),
              (TypeListEndpoint, '/type'), (SearchEndpoint, '/search'),
+             (SegmentListEndpoint, '/segment'),
              (ResourceCategoryListEndpoint, '/resource_category'),
              (ResourceCategoryEndpoint, '/resource_category/<id>'),
              (AvailabilityListEndpoint, '/availability'),

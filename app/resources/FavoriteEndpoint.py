@@ -17,7 +17,7 @@ class UserFavoriteEndpoint(flask_restful.Resource):
         favorites = db.session.query(Favorite) \
             .join(Favorite.resource) \
             .filter(Favorite.user_id == g.user.id) \
-            .order_by(ThrivResource.name) \
+            .order_by(ThrivResource.segment_id.desc(), ThrivResource.last_updated.desc())\
             .all()
         return schema.dump(favorites)
 
@@ -27,7 +27,8 @@ class UserFavoriteEndpoint(flask_restful.Resource):
         favorites = self.schema.load(request_data, many=True).data
         db.session.query(Favorite).filter_by(user_id=g.user.id).delete()
         for f in favorites:
-            db.session.add(Favorite(user_id=g.user.id, resource_id=f.resource_id))
+            db.session.add(Favorite(user_id=g.user.id,
+                                    resource_id=f.resource_id))
         db.session.commit()
         return self.get()
 
@@ -37,7 +38,8 @@ class FavoriteEndpoint(flask_restful.Resource):
 
     def get(self, id):
         model = db.session.query(Favorite).filter_by(id=id).first()
-        if model is None: raise RestException(RestException.NOT_FOUND)
+        if model is None:
+            raise RestException(RestException.NOT_FOUND)
         return self.schema.dump(model)
 
     def delete(self, id):
