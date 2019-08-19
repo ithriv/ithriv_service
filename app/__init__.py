@@ -3,6 +3,8 @@ import os
 import signal
 
 import click
+from psycopg2cffi import compat
+compat.register()
 from alembic import command
 from flask import Flask, jsonify
 from flask_bcrypt import Bcrypt

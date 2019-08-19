@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 networks:
   ithriv_network:
     name: ithriv_network

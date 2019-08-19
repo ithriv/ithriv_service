@@ -4,6 +4,6 @@
   "python.linting.pylintEnabled": true,
   "python.linting.enabled": true,
   "python.formatting.provider": "autopep8",
-  "python.pythonPath": "env/bin/python",
+  "python.pythonPath": "pypy-env/bin/python",
   "python.autoComplete.extraPaths": ["env/lib/python3.7/site-packages"]
 }

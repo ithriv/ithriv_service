@@ -1,4 +1,4 @@
-FROM python:3.7.3-stretch
+FROM pypy:3.6-7-stretch
 LABEL maintainer="rkc7h@virginia.edu"
 ARG BUILD_ENV
 ARG ES_ENV_HOST
