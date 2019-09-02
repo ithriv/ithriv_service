@@ -15,8 +15,12 @@ def auth_callback_url_tuple(portal_host_url, auth_callback_route, auth_email_res
 
 conn_info = fetch_connections_info()
 
-ENV_BOOL_FLAGS_TUPLE = (conn_info['ENV'] in (
-    'local', 'dev'), conn_info['ENV'] == 'qa', conn_info['ENV'] == 'uat', conn_info['ENV'] == 'prod')
+ENV_BOOL_FLAGS_TUPLE = (
+    conn_info['ENV'] == 'local',
+    conn_info['ENV'] in ('dev', 'qa'),
+    conn_info['ENV'] == 'uat',
+    conn_info['ENV'] == 'prod'
+)
 
 DEVELOPMENT, TESTING, STAGING, PRODUCTION = ENV_BOOL_FLAGS_TUPLE
 CORS_ENABLED = False
