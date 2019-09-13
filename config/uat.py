@@ -15,7 +15,6 @@ ALEMBIC_PRINT_SQL = True
 # Single Signon configuration Settings
 DEVELOPMENT = True
 SSO_ATTRIBUTE_MAP['uid'] = (False, 'uid')
-SSO_DEVELOPMENT_EPPN = 'ithriv_admin@virginia.edu'
 
 API_URL = 'https://uat.ithriv.org'
 SITE_URL = 'https://uat.ithriv.org'
