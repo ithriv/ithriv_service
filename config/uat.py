@@ -13,7 +13,6 @@ ALEMBIC_PRINT_SQL = True
 # SMTP Email Settings
 
 # Single Signon configuration Settings
-DEVELOPMENT = True
 SSO_ATTRIBUTE_MAP['uid'] = (False, 'uid')
 
 API_URL = 'https://uat.ithriv.org'
