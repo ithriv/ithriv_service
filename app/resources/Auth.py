@@ -16,6 +16,10 @@ auth_blueprint = Blueprint('auth', __name__, url_prefix='/api')
 
 @sso.login_handler
 def login(user_info):
+    if('eppn' in request.args):
+        user_info['eppn'] = request.args['eppn']
+    for key in request.environ:
+        print("{} : {}".format(key, request.environ[key]))
     if app.config["DEVELOPMENT"]:
         eppn = app.config["SSO_DEVELOPMENT_EPPN"]
     else:
