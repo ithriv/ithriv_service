@@ -75,8 +75,9 @@ SSO_ATTRIBUTE_MAP = {
     'eppn': (False, 'eppn'),  # valid email address
     'uid': (True, 'uid'),  # computing id
     'givenName': (False, 'givenName'),
+    'cn': (False, 'cn'),
     'mail': (False, 'email'),  # valid email address
-    'sn': (False, 'surName'),  # Funk# 'staff@virginia.edu;member@virginia.edu'
+    'sn': (False, 'sn'),  # Lastname
     'affiliation': (False, 'affiliation'),
     'displayName': (False, 'displayName'),
     'title': (False, 'title')
