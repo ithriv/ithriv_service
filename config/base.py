@@ -76,7 +76,7 @@ SSO_ATTRIBUTE_MAP = {
     'uid': (True, 'uid'),  # computing id
     'givenName': (False, 'givenName'),
     'cn': (False, 'cn'),
-    'mail': (False, 'email'),  # valid email address
+    'email': (False, 'email'),  # valid email address
     'sn': (False, 'sn'),  # Lastname
     'affiliation': (False, 'affiliation'),
     'displayName': (False, 'displayName'),

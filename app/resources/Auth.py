@@ -16,14 +16,17 @@ auth_blueprint = Blueprint('auth', __name__, url_prefix='/api')
 
 @sso.login_handler
 def login(user_info):
-    for key in request.environ:
-        print("{} : {}".format(key, request.environ[key]))
+    if app.config["DEVELOPMENT"] or app.config["TESTING"] or app.config["STAGING"]:
+        for key in request.environ:
+            print("ENVIRON -> {} : {}".format(key, request.environ[key]))
+        for key in user_info:
+            print("USER_INFO -> {} : {}".format(key, user_info[key]))
     if app.config["DEVELOPMENT"]:
         eppn = app.config["SSO_DEVELOPMENT_EPPN"]
         email = eppn
     else:
         eppn = user_info['eppn']
-        email = user_info['mail']
+        email = user_info['email']
 
     user = User.query.filter(
         or_(
