@@ -59,7 +59,7 @@ MAIL_SERVER = conn_info["SMTP"]["HOSTS"][0]
 MAIL_PORT = conn_info["SMTP"]["PORT"]
 MAIL_USERNAME = conn_info["SMTP"]["CLIENT_ID"]
 MAIL_PASSWORD = conn_info["SMTP"]["CLIENT_SECRET"]
-MAIL_DEFAULT_SENDER = ''.join(['support-', conn_info['ENV'], '@ithriv.org'])
+MAIL_DEFAULT_SENDER = ''.join(['support', '@ithriv.org'])
 MAIL_DEFAULT_USER = 'rkc7h@virginia.edu'
 MAIL_DEFAULT_RECIPIENT = 'rkc7h@virginia.edu'
 MAIL_CONSULT_RECIPIENT = 'ResearchConcierge@hscmail.mcc.virginia.edu'
@@ -90,3 +90,5 @@ SITE_URL = ''.join(['https://portal.', conn_info['ENV'], '.ithriv.org'])
 FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
     SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
 PHOTO_SERVE_URL = 'https://ithriv.s3.aws.com'
+
+ENV_NAME = conn_info['ENV']
