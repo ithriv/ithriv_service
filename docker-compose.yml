@@ -1,4 +1,4 @@
-version: '3.7'
+version: "3.7"
 networks:
   ithriv_network:
     name: ithriv_network
@@ -40,8 +40,8 @@ services:
     container_name: postfix
     environment:
       - ALLOWED_SENDER_DOMAINS=ithriv.org
-    # ports:
-    #   - 1587:587
+    ports:
+      - 1587:587
     networks:
       - ithriv_network
   ithriv_service:

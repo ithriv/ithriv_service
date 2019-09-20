@@ -7,4 +7,4 @@ User Institution: {{ user.institution }}
 User Institutional Role: {{ user.institutional_role }}
 User Division: {{ user.division }}
 Resource Name: {{ resource.name }}
-Resource URL: https://portal.ithriv.org/#/resource/{{ resource.id }}
+Resource URL: {{ site_url }}/#/resource/{{ resource.id }}

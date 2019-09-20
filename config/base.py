@@ -75,8 +75,9 @@ SSO_ATTRIBUTE_MAP = {
     'eppn': (False, 'eppn'),  # valid email address
     'uid': (True, 'uid'),  # computing id
     'givenName': (False, 'givenName'),
-    'mail': (False, 'email'),  # valid email address
-    'sn': (False, 'surName'),  # Funk# 'staff@virginia.edu;member@virginia.edu'
+    'cn': (False, 'cn'),
+    'email': (False, 'email'),  # valid email address
+    'sn': (False, 'sn'),  # Lastname
     'affiliation': (False, 'affiliation'),
     'displayName': (False, 'displayName'),
     'title': (False, 'title')
@@ -89,3 +90,5 @@ SITE_URL = ''.join(['https://portal.', conn_info['ENV'], '.ithriv.org'])
 FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
     SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
 PHOTO_SERVE_URL = 'https://ithriv.s3.aws.com'
+
+ENV_NAME = conn_info['ENV']
