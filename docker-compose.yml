@@ -39,8 +39,9 @@ services:
     image: boky/postfix
     container_name: postfix
     environment:
-      - ALLOWED_SENDER_DOMAINS=ithriv.org
+      - ALLOWED_SENDER_DOMAINS=ithriv.org, virginia.edu
     ports:
+      #- "25:25"
       - 1587:587
     networks:
       - ithriv_network

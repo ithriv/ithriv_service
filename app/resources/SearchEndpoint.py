@@ -20,6 +20,7 @@ class SearchEndpoint(flask_restful.Resource):
         try:
             results = elastic_index.search_resources(search)
         except elasticsearch.ElasticsearchException as e:
+            print(e)
             raise RestException(RestException.ELASTIC_ERROR)
 
         search.total = results.hits.total

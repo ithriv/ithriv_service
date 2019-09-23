@@ -17,11 +17,14 @@ class Category(db.Model):
     __tablename__ = 'category'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    brief_description = db.Column(db.String)  # Shorter description of the category
+    # Shorter description of the category
+    brief_description = db.Column(db.String)
     description = db.Column(db.String)  # Complete description of the category
-    parent_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey(
+        'category.id'), nullable=True)
     color = db.Column(db.String)  # Should be a CSS color specification
-    image = db.Column(db.String)  # Should be the url for a large background image
+    # Should be the url for a large background image
+    image = db.Column(db.String)
     display_order = db.Column(db.Integer, default=999)
     children = db.relationship("Category",
                                backref=db.backref('parent', remote_side=[id]),
@@ -131,6 +134,11 @@ class ThrivResource(db.Model):
     categories = db.relationship("ResourceCategory", back_populates="resource")
     approved = db.Column(db.String)
     private = db.Column(db.Boolean, default=False)
+    segment_id = db.Column('segment_id', db.Integer,
+                           db.ForeignKey('segment.id'))
+    location = db.Column(db.String)
+    starts = db.Column(db.DateTime)
+    ends = db.Column(db.DateTime)
 
     def favorite_count(self):
         return len(self.favorites)
@@ -190,8 +198,10 @@ class ThrivResource(db.Model):
 class ResourceCategory(db.Model):
     __tablename__ = 'resource_category'
     id = db.Column(db.Integer, primary_key=True)
-    resource_id = db.Column(db.Integer, db.ForeignKey(ThrivResource.id), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey(Category.id), nullable=False)
+    resource_id = db.Column(db.Integer, db.ForeignKey(
+        ThrivResource.id), nullable=False)
+    category_id = db.Column(
+        db.Integer, db.ForeignKey(Category.id), nullable=False)
     resource = db.relationship(ThrivResource, backref='resource_categories')
     category = db.relationship(Category, backref='category_resources')
 
@@ -200,9 +210,18 @@ class ThrivType(db.Model):
     __tablename__ = 'type'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    resources = db.relationship('ThrivResource', backref=db.backref('type', lazy=True))
+    resources = db.relationship(
+        'ThrivResource', backref=db.backref('type', lazy=True))
     icon_id = db.Column(db.Integer, db.ForeignKey('icon.id'))
     icon = db.relationship("Icon")
+
+
+class ThrivSegment(db.Model):
+    __tablename__ = 'segment'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    resources = db.relationship(
+        'ThrivResource', backref=db.backref('segment', lazy=True))
 
 
 class UploadedFile(db.Model):
