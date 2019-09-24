@@ -21,7 +21,7 @@ SQLALCHEMY_DATABASE_URI = ''.join(['postgresql://',
 ELASTIC_SEARCH['hosts'] = ["ithriv_es"]
 
 # SMTP Email Settings
-
+MAIL_SERVER = 'postfix'
 # Single Signon configuration Settings
 SSO_ATTRIBUTE_MAP['uid'] = (False, 'uid')
 SSO_DEVELOPMENT_EPPN = 'ithriv_admin@virginia.edu'

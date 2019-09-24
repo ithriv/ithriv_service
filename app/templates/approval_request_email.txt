@@ -1,10 +1,10 @@
 Dear Research Concierge,
 
-{{ user.display_name }} just requested approval of a resource with the following details:
+{{ user.display_name }} just requested approval of {{ resource.segment.name }} with the following details:
 User Email: {{ user.email }}
 User Id: {{ user.uid }}
 User Institution: {{ user.institution }}
 User Institutional Role: {{ user.institutional_role }}
 User Division: {{ user.division }}
-Resource Name: {{ resource.name }}
-Resource URL: {{ site_url }}/#/resource/{{ resource.id }}
+{{ resource.segment.name }} Name: {{ resource.name }}
+{{ resource.segment.name }} URL: {{ site_url }}/#/resource/{{ resource.id }}
