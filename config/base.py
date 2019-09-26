@@ -15,8 +15,12 @@ def auth_callback_url_tuple(portal_host_url, auth_callback_route, auth_email_res
 
 conn_info = fetch_connections_info()
 
-ENV_BOOL_FLAGS_TUPLE = (conn_info['ENV'] in (
-    'local', 'dev'), conn_info['ENV'] == 'qa', conn_info['ENV'] == 'uat', conn_info['ENV'] == 'prod')
+ENV_BOOL_FLAGS_TUPLE = (
+    conn_info['ENV'] == 'local',
+    conn_info['ENV'] in ('dev', 'qa'),
+    conn_info['ENV'] == 'uat',
+    conn_info['ENV'] == 'prod'
+)
 
 DEVELOPMENT, TESTING, STAGING, PRODUCTION = ENV_BOOL_FLAGS_TUPLE
 CORS_ENABLED = False
@@ -71,8 +75,9 @@ SSO_ATTRIBUTE_MAP = {
     'eppn': (False, 'eppn'),  # valid email address
     'uid': (True, 'uid'),  # computing id
     'givenName': (False, 'givenName'),
-    'mail': (False, 'email'),  # valid email address
-    'sn': (False, 'surName'),  # Funk# 'staff@virginia.edu;member@virginia.edu'
+    'cn': (False, 'cn'),
+    'email': (False, 'email'),  # valid email address
+    'sn': (False, 'sn'),  # Lastname
     'affiliation': (False, 'affiliation'),
     'displayName': (False, 'displayName'),
     'title': (False, 'title')
@@ -85,3 +90,5 @@ SITE_URL = ''.join(['https://portal.', conn_info['ENV'], '.ithriv.org'])
 FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
     SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
 PHOTO_SERVE_URL = 'https://ithriv.s3.aws.com'
+
+ENV_NAME = conn_info['ENV']

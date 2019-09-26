@@ -12,6 +12,7 @@ from app.models import Availability
 from app.models import Favorite
 from app.models import ResourceCategory
 from app.models import ThrivResource
+from app.models import ThrivType
 from app.resources.schema import ThrivResourceSchema
 from app.resources.Auth import login_optional
 
@@ -64,7 +65,11 @@ class ResourceListEndpoint(flask_restful.Resource):
         args = request.args
         limit = eval(args["limit"]) if ("limit" in args) else 10
         schema = ThrivResourceSchema(many=True)
-        resources = db.session.query(ThrivResource).order_by(ThrivResource.last_updated.desc()).limit(limit).all()
+        if("type" in args):
+            ithrivType = db.session.query(ThrivType).filter(ThrivType.name == args["type"]).limit(limit).one()
+            resources = db.session.query(ThrivResource).filter(ThrivResource.type_id == ithrivType.id).order_by(ThrivResource.last_updated.desc()).all()
+        else:
+            resources = db.session.query(ThrivResource).order_by(ThrivResource.last_updated.desc()).limit(limit).all()
         viewable_resources = []
         for r in resources:
             if r.user_may_view():
