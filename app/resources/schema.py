@@ -11,6 +11,7 @@ from app.models import ThrivResource
 from app.models import ResourceCategory
 from app.models import Filter, Search
 from app.models import ThrivType
+from app.models import ThrivSegment
 from app.models import UploadedFile
 from app.models import User
 from app.models import Favorite
@@ -37,11 +38,19 @@ class ThrivTypeSchema(ModelSchema):
     icon = fields.Nested(IconSchema,  allow_none=True, dump_only=True)
 
 
+class ThrivSegmentSchema(ModelSchema):
+    class Meta:
+        model = ThrivSegment
+        fields = ('id', 'name')
+
+
 class AvailabilitySchema(ModelSchema):
     class Meta:
         model = Availability
-        fields = ('id', 'institution_id', 'resource_id', 'available', 'institution')
-    institution = fields.Nested(ThrivInstitutionSchema(), dump_only=True, allow_none=True)
+        fields = ('id', 'institution_id', 'resource_id',
+                  'available', 'institution')
+    institution = fields.Nested(
+        ThrivInstitutionSchema(), dump_only=True, allow_none=True)
 
 
 class FavoriteSchema(ModelSchema):
@@ -66,7 +75,8 @@ class ParentCategorySchema(ModelSchema):
     icon_id = fields.Integer(required=False, allow_none=True)
     icon = fields.Nested(IconSchema, allow_none=True, dump_only=True)
     image = fields.String(required=False, allow_none=True)
-    display_order = fields.Integer(required=True, allow_none=False, default=999)
+    display_order = fields.Integer(
+        required=True, allow_none=False, default=999)
     _links = ma.Hyperlinks({
         'self': ma.URLFor('api.categoryendpoint', id='<id>'),
         'collection': ma.URLFor('api.categorylistendpoint'),
@@ -89,7 +99,8 @@ class CategoriesOnResourceSchema(ModelSchema):
 class FileSchema(ModelSchema):
     class Meta:
         model = UploadedFile
-        fields = ('id', 'file_name', 'display_name', 'date_modified', 'mime_type', 'size', 'md5', 'resource_id', 'url')
+        fields = ('id', 'file_name', 'display_name', 'date_modified',
+                  'mime_type', 'size', 'md5', 'resource_id', 'url')
     id = fields.Integer(required=False, allow_none=True)
     resource_id = fields.Integer(required=False, allow_none=True)
 
@@ -98,11 +109,11 @@ class ThrivResourceSchema(ModelSchema):
     class Meta:
         model = ThrivResource
         fields = ('id', 'name', 'description', 'last_updated', 'owner',
-                  'website', 'cost', 'institution_id', 'type_id', 'type',
+                  'website', 'cost', 'institution_id', 'type_id', 'type', 'segment_id', 'segment',
                   'institution', 'availabilities', 'approved', 'files',
                   'contact_email', 'contact_phone', 'contact_notes', 'private',
                   '_links', 'favorites', 'favorite_count', 'resource_categories',
-                  'owners', 'user_may_view', 'user_may_edit')
+                  'owners', 'user_may_view', 'user_may_edit', 'location', 'starts', 'ends')
     id = fields.Integer(required=False, allow_none=True)
     last_updated = fields.Date(required=False, allow_none=True)
     owner = fields.String(required=False, allow_none=True)
@@ -112,15 +123,23 @@ class ThrivResourceSchema(ModelSchema):
     website = fields.String(required=False, allow_none=True)
     institution_id = fields.Integer(required=False, allow_none=True)
     type_id = fields.Integer(required=False, allow_none=True)
+    segment_id = fields.Integer(required=False, allow_none=True)
     approved = fields.String(required=False, allow_none=True)
     favorite_count = fields.Integer(required=False, allow_none=True)
     private = fields.Boolean(required=False, allow_none=True)
+    location = fields.String(required=False, allow_none=True)
+    starts = fields.DateTime(required=False, allow_none=True)
+    ends = fields.DateTime(required=False, allow_none=True)
 
     type = fields.Nested(ThrivTypeSchema(), dump_only=True)
-    institution = fields.Nested(ThrivInstitutionSchema(), dump_only=True, allow_none=True)
-    availabilities = fields.Nested(AvailabilitySchema(), many=True, dump_only=True)
+    segment = fields.Nested(ThrivSegmentSchema(), dump_only=True)
+    institution = fields.Nested(
+        ThrivInstitutionSchema(), dump_only=True, allow_none=True)
+    availabilities = fields.Nested(
+        AvailabilitySchema(), many=True, dump_only=True)
     favorites = fields.Nested(FavoriteSchema(), many=True, dump_only=True)
-    resource_categories = fields.Nested(CategoriesOnResourceSchema(), many=True, dump_only=True)
+    resource_categories = fields.Nested(
+        CategoriesOnResourceSchema(), many=True, dump_only=True)
     files = fields.Nested(FileSchema(), many=True, dump_only=True)
     user_may_view = fields.Boolean(allow_none=True)
     user_may_edit = fields.Boolean(allow_none=True)
@@ -142,18 +161,20 @@ class CategorySchema(ModelSchema):
         fields = ('id', 'name', 'brief_description', 'description',
                   'color', 'level', 'image', 'icon_id', 'icon',
                   'children', 'parent_id', 'parent', 'resource_count',
-                  'display_order','_links')
+                  'display_order', '_links')
     id = fields.Integer(required=False, allow_none=True)
     icon_id = fields.Integer(required=False, allow_none=True)
     icon = fields.Nested(IconSchema,  allow_none=True, dump_only=True)
     image = fields.String(required=False, allow_none=True)
     parent_id = fields.Integer(required=False, allow_none=True)
-    children = fields.Nested('self', many=True, dump_only=True, exclude=('parent', 'color'))
+    children = fields.Nested(
+        'self', many=True, dump_only=True, exclude=('parent', 'color'))
     parent = fields.Nested(ParentCategorySchema, dump_only=True)
     color = fields.Function(lambda obj: obj.calculate_color())
     level = fields.Function(lambda obj: obj.calculate_level(), dump_only=True)
     resource_count = fields.Method('get_resource_count')
-    display_order = fields.Integer(required=False, allow_none=False, default=999)
+    display_order = fields.Integer(
+        required=False, allow_none=False, default=999)
     _links = ma.Hyperlinks({
         'self': ma.URLFor('api.categoryendpoint', id='<id>'),
         'collection': ma.URLFor('api.categorylistendpoint'),
@@ -170,9 +191,10 @@ class CategorySchema(ModelSchema):
         return resource_count
 
     def get_resource_count(self, obj):
-        query =db.session.query(ResourceCategory).join(ResourceCategory.resource)\
+        query = db.session.query(ResourceCategory).join(ResourceCategory.resource)\
             .filter(ResourceCategory.category_id == obj.id).filter(ThrivResource.approved == 'Approved')
-        count_q = query.statement.with_only_columns([func.count()]).order_by(None)
+        count_q = query.statement.with_only_columns(
+            [func.count()]).order_by(None)
         return query.session.execute(count_q).scalar()
 
 
@@ -266,7 +288,8 @@ class UserSchema(ModelSchema):
     password = fields.String(load_only=True)
     id = fields.Integer(required=False, allow_none=True)
     institution_id = fields.Integer(required=False, allow_none=True)
-    institution = fields.Nested(ThrivInstitutionSchema(), dump_only=True, allow_none=True)
+    institution = fields.Nested(
+        ThrivInstitutionSchema(), dump_only=True, allow_none=True)
 
     _links = ma.Hyperlinks({
         'self': ma.URLFor('api.userendpoint', id='<id>'),
@@ -279,4 +302,3 @@ class UserSearchSchema(ma.Schema):
     pages = fields.Integer()
     total = fields.Integer()
     items = ma.List(ma.Nested(UserSchema))
-

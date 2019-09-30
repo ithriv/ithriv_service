@@ -86,7 +86,10 @@ class ElasticIndex:
             owner=r.owner,
             approved=r.approved,
             institution_id=r.institution_id,
+            segment_id=r.segment_id,
             private=r.private)
+        if r.segment:
+            er.segment = r.segment.name
         if r.institution:
             er.institution = r.institution.name
         if r.type:
@@ -134,6 +137,7 @@ class ElasticResource(DocType):
     last_updated = Date()
     description = Text()
     type = Keyword()
+    segment = Keyword()
     institution = Keyword()
     website = Keyword()
     owner = Text()
@@ -141,27 +145,29 @@ class ElasticResource(DocType):
     approved = Keyword()
     favorite_count = Integer()
     institution_id = Integer()
+    segment_id = Integer()
     private = Boolean()
 
 
 class ResourceSearch(elasticsearch_dsl.FacetedSearch):
+    doc_types = [ElasticResource]
+    fields = [
+        'name^10', 'description^5', 'type^2', 'institution', 'owner', 'website', 'approved'
+    ]
+
+    facets = {
+        'Segment': elasticsearch_dsl.TermsFacet(field='segment'),
+        'Type': elasticsearch_dsl.TermsFacet(field='type'),
+        'Institution': elasticsearch_dsl.TermsFacet(field='institution'),
+        'Approved': elasticsearch_dsl.TermsFacet(field='approved')
+    }
+
     def __init__(self, *args, **kwargs):
         self.index = kwargs["index"]
         #        self.date_restriction = kwargs["date_restriction"]
         kwargs.pop("index")
         #        kwargs.pop("date_restriction")
         super(ResourceSearch, self).__init__(*args, **kwargs)
-
-    doc_types = [ElasticResource]
-    fields = [
-        'name^10', 'description^5', 'type^2', 'institution', 'owner', 'website'
-    ]
-
-    facets = {
-        'Type': elasticsearch_dsl.TermsFacet(field='type'),
-        'Institution': elasticsearch_dsl.TermsFacet(field='institution'),
-        'Approved': elasticsearch_dsl.TermsFacet(field='approved')
-    }
 
     def search(self):
         criteria = []
@@ -209,5 +215,6 @@ class ResourceSearch(elasticsearch_dsl.FacetedSearch):
                 ])
             )
 
-        s = super(ResourceSearch, self).search().filter('bool', should=criteria)
+        s = super(ResourceSearch, self).search().filter(
+            'bool', should=criteria)
         return s

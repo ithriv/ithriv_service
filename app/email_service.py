@@ -8,6 +8,7 @@ from itsdangerous import URLSafeTimedSerializer
 
 TEST_MESSAGES = []
 
+
 class EmailService():
 
     def __init__(self, app):
@@ -52,13 +53,15 @@ class EmailService():
         msgAlternative.attach(part2)
 
         if ical:
-            ical_atch = MIMEText(ical.decode("utf-8"),'calendar')
-            ical_atch.add_header('Filename','event.ics')
-            ical_atch.add_header('Content-Disposition','attachment; filename=event.ics')
+            ical_atch = MIMEText(ical.decode("utf-8"), 'calendar')
+            ical_atch.add_header('Filename', 'event.ics')
+            ical_atch.add_header('Content-Disposition',
+                                 'attachment; filename=event.ics')
             msgRoot.attach(ical_atch)
 
         if 'TESTING' in self.app.config and self.app.config['TESTING']:
-            print("TEST:  Recording Emails, not sending - %s - to:%s" % (subject, recipients))
+            print("TEST:  Recording Emails, not sending - %s - to:%s" %
+                  (subject, recipients))
             TEST_MESSAGES.append(msgRoot)
             return
 
@@ -72,8 +75,13 @@ class EmailService():
         tracking_code = self.tracking_code()
 
         subject = "iTHRIV: Confirm Email"
+        if (not self.app.config['PRODUCTION']):
+            subject = ''.join(
+                [subject, ' For ', self.app.config['ENV_NAME'].upper()])
+
         confirm_url = self.app.config['FRONTEND_EMAIL_RESET'] + token
-        logo_url = url_for('track.logo', user_id=user.id, code=tracking_code, _external=True)
+        logo_url = url_for('track.logo', user_id=user.id,
+                           code=tracking_code, _external=True)
         text_body = render_template("confirm_email.txt",
                                     user=user, confirm_url=confirm_url,
                                     tracking_code=tracking_code)
@@ -94,8 +102,13 @@ class EmailService():
         tracking_code = self.tracking_code()
 
         subject = "iTHRIV: Password Reset Email"
+        if (not self.app.config['PRODUCTION']):
+            subject = ''.join(
+                [subject, ' For ', self.app.config['ENV_NAME'].upper()])
+
         reset_url = self.app.config['FRONTEND_EMAIL_RESET'] + token
-        logo_url = url_for('track.logo', user_id=user.id, code=tracking_code, _external=True)
+        logo_url = url_for('track.logo', user_id=user.id,
+                           code=tracking_code, _external=True)
         text_body = render_template("reset_email.txt",
                                     user=user, reset_url=reset_url,
                                     tracking_code=tracking_code)
@@ -110,11 +123,16 @@ class EmailService():
 
         return tracking_code
 
-    def consult_email(self, user, request_data):
+    def consult_email(self, user, admin, request_data):
         tracking_code = self.tracking_code()
 
         subject = "iTHRIV: Consult Request"
-        logo_url = url_for('track.logo', user_id=user.id, code=tracking_code, _external=True)
+        if (not self.app.config['PRODUCTION']):
+            subject = ''.join(
+                [subject, ' For ', self.app.config['ENV_NAME'].upper()])
+
+        logo_url = url_for('track.logo', user_id=user.id,
+                           code=tracking_code, _external=True)
         text_body = render_template("consult_email.txt",
                                     user=user, request_data=request_data, tracking_code=tracking_code)
 
@@ -122,19 +140,23 @@ class EmailService():
                                     user=user, request_data=request_data, logo_url=logo_url, tracking_code=tracking_code)
 
         self.send_email(subject,
-                        recipients=[self.app.config['MAIL_CONSULT_RECIPIENT']], text_body=text_body, html_body=html_body)
+                        recipients=[admin.email], text_body=text_body, html_body=html_body)
 
         return tracking_code
 
     def approval_request_email(self, user, admin, resource):
         tracking_code = self.tracking_code()
-
         subject = "iTHRIV: Resource Approval Request"
-        logo_url = url_for('track.logo', user_id=admin.id, code=tracking_code, _external=True)
-        text_body = render_template("approval_request_email.txt",
+        if (not self.app.config['PRODUCTION']):
+            subject = ''.join(
+                [subject, ' For ', self.app.config['ENV_NAME'].upper()])
+
+        logo_url = url_for('track.logo', user_id=admin.id,
+                           code=tracking_code, _external=True)
+        text_body = render_template("approval_request_email.txt", site_url=self.app.config['SITE_URL'],
                                     user=user, admin=admin, resource=resource, tracking_code=tracking_code)
 
-        html_body = render_template("approval_request_email.html",
+        html_body = render_template("approval_request_email.html", site_url=self.app.config['SITE_URL'],
                                     user=user, admin=admin, resource=resource, logo_url=logo_url, tracking_code=tracking_code)
 
         self.send_email(subject,
@@ -146,12 +168,17 @@ class EmailService():
         tracking_code = self.tracking_code()
 
         subject = "iTHRIV: Resource Approval Request Confirmed"
+        if (not self.app.config['PRODUCTION']):
+            subject = ''.join(
+                [subject, ' For ', self.app.config['ENV_NAME'].upper()])
+
         support_email = self.app.config['MAIL_CONSULT_RECIPIENT']
-        logo_url = url_for('track.logo', user_id=user.id, code=tracking_code, _external=True)
-        text_body = render_template("approval_request_confirm_email.txt",
+        logo_url = url_for('track.logo', user_id=user.id,
+                           code=tracking_code, _external=True)
+        text_body = render_template("approval_request_confirm_email.txt", site_url=self.app.config['SITE_URL'],
                                     user=user, resource=resource, support_email=support_email, tracking_code=tracking_code)
 
-        html_body = render_template("approval_request_confirm_email.html",
+        html_body = render_template("approval_request_confirm_email.html",  site_url=self.app.config['SITE_URL'],
                                     user=user, resource=resource, support_email=support_email, logo_url=logo_url, tracking_code=tracking_code)
 
         self.send_email(subject,

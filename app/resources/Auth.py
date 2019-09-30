@@ -16,34 +16,49 @@ auth_blueprint = Blueprint('auth', __name__, url_prefix='/api')
 
 @sso.login_handler
 def login(user_info):
+    if app.config["DEVELOPMENT"] or app.config["TESTING"] or app.config["STAGING"]:
+        for key in request.environ:
+            print("ENVIRON -> {} : {}".format(key, request.environ[key]))
+        for key in user_info:
+            print("USER_INFO -> {} : {}".format(key, user_info[key]))
     if app.config["DEVELOPMENT"]:
         eppn = app.config["SSO_DEVELOPMENT_EPPN"]
+        email = eppn
     else:
         eppn = user_info['eppn']
+        email = user_info['email']
 
     user = User.query.filter(
         or_(
             func.lower(User.eppn) == func.lower(eppn),
-            func.lower(User.email) == func.lower(eppn))).first()
+            func.lower(User.email) == func.lower(email))).first()
     if user is None:
         user = User(
-            eppn=eppn.lower(), display_name=eppn.lower(), email=eppn.lower())
-        if "Surname" in user_info:
-            user.display_name = user.display_name + " " + user_info["Surname"]
-
-        if "displayName" in user_info and user_info[
-                "displayName"] is not None and len(
-                    user_info["displayName"]) > 1:
-            user.display_name = user_info["displayName"]
-
-        # Link the user to their institution if possible
-        institutions = ThrivInstitution.query.all()
-        for i in institutions:
-            if i.domain and eppn.lower().endswith(i.domain.lower()):
-                user.institution = i
+            eppn=eppn.lower(), display_name=eppn.lower(), email=email.lower())
     else:
         user.eppn = eppn.lower()
-        user.email = eppn.lower()
+        user.email = email.lower()
+        user.display_name = eppn.lower()
+
+    if "displayName" in user_info and user_info[
+            "displayName"] is not None and len(user_info["displayName"]) > 1:
+        user.display_name = user_info["displayName"]
+    elif "cn" in user_info and user_info[
+            "cn"] is not None and len(user_info["cn"]) > 1:
+        user.display_name = user_info["cn"]
+    elif "sn" in user_info and user_info["sn"] is not None and len(user_info["sn"]) > 1:
+        if "givenName" in user_info and user_info[
+                "givenName"] is not None and len(user_info["givenName"]) > 1:
+            user.display_name = user_info["givenName"] + \
+                " " + user_info["sn"]
+        else:
+            user.display_name = user.display_name + " " + user_info["sn"]
+
+    # Link the user to their institution if possible
+    institutions = ThrivInstitution.query.all()
+    for i in institutions:
+        if i.domain and eppn.lower().endswith(i.domain.lower()):
+            user.institution = i
 
     db.session.add(user)
     db.session.commit()

@@ -15,9 +15,15 @@ def consult_request():
     request_data = request.get_json()
     user_id = request_data['user_id']
     user = User.query.filter_by(id=user_id).first_or_404()
+    admins = User.query.filter_by(
+        role="Admin", institution_id=user.institution_id).all()
 
-    tracking_code = email_service.consult_email(user, request_data)
-    log = EmailLog(user_id=user.id, type="consult_request", tracking_code=tracking_code)
-    db.session.add(log)
-    db.session.commit()
+    # Send consult request email to each admin for the institution
+    for admin in admins:
+        tracking_code = email_service.consult_email(user, admin, request_data)
+        log = EmailLog(user_id=admin.id, type="consult_request",
+                       tracking_code=tracking_code)
+        db.session.add(log)
+        db.session.commit()
+
     return ''
