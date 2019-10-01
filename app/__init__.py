@@ -171,6 +171,12 @@ def _setup():
             raise ex
     else:
         click.echo('Cannot setup: Database already exists')
+        if app.config['ALEMBIC_PRINT_SQL']:
+            command.upgrade(migrate.get_config(), 'head', True)
+        command.upgrade(migrate.get_config(), 'head')
+        click.echo('Database revision changes applied..........')
+        _loadindex()
+        click.echo('Elastic search database initalized with data..........')
 
 
 def _teardown():
