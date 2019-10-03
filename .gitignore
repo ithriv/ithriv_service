@@ -5,3 +5,4 @@ env
 /.pydevproject
 /supervisord.log
 /pypy-env/
+/python-env/
