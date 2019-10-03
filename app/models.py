@@ -135,7 +135,7 @@ class ThrivResource(db.Model):
     approved = db.Column(db.String)
     private = db.Column(db.Boolean, default=False)
     segment_id = db.Column('segment_id', db.Integer,
-                           db.ForeignKey('segment.id'))
+                           db.ForeignKey('segment.id'), nullable=False)
     location = db.Column(db.String)
     starts = db.Column(db.DateTime)
     ends = db.Column(db.DateTime)
