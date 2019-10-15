@@ -151,29 +151,43 @@ class ThrivResource(db.Model):
 
     def user_may_view(self):
         try:
-            # if resource is private,
-            # user institution must match resource institution
-            if 'user' in g and g.user:
-                owners = self.owners()
-                if owners and g.user.email in owners:
+            if('user' in g and g.user is not None):
+                if(g.user.email in self.owners()):
                     return True
-                elif g.user.role == "Admin":
-                    if self.private:
-                        return self.institution_id == g.user.institution_id
-                    else:
+                elif ((self.private is None or self.private is False)
+                        or self.institution.description == g.user.institution.description):
+                    if (self.approved == 'Approved'):
                         return True
-                elif g.user.role == "User":
-                    if self.private:
-                        return (self.approved == "Approved") and (self.institution_id == g.user.institution_id)
-                    else:
-                        return (self.approved == "Approved")
-                else:
-                    return False
-            else:
-                if self.private:
-                    return (self.approved == "Approved") and (not self.private)
-                else:
-                    return (self.approved == "Approved")
+                    elif (g.user.role == "Admin"):
+                        return True
+            elif ((self.private is None or self.private is False)
+                  and self.approved == 'Approved'):
+                return True
+            return False
+
+            # # if resource is private,
+            # # user institution must match resource institution
+            # if 'user' in g and g.user:
+            #     owners = self.owners()
+            #     if owners and g.user.email in owners:
+            #         return True
+            #     elif g.user.role == "Admin":
+            #         if self.private:
+            #             return self.institution_id == g.user.institution_id
+            #         else:
+            #             return True
+            #     elif g.user.role == "User":
+            #         if self.private:
+            #             return (self.approved == "Approved") and (self.institution_id == g.user.institution_id)
+            #         else:
+            #             return (self.approved == "Approved")
+            #     else:
+            #         return False
+            # else:
+            #     if self.private:
+            #         return (self.approved == "Approved") and (not self.private)
+            #     else:
+            #         return (self.approved == "Approved")
 
         except Exception:
             return False
