@@ -3,7 +3,7 @@ import flask_restful
 from flask import request, g
 
 from app import elastic_index, RestException
-from app.models import ThrivResource
+from app.models import ThrivResource, Availability, ThrivInstitution
 from app.models import Facet, FacetCount, Filter, Search
 from app.resources.schema import SearchSchema, ThrivResourceSchema
 from app.resources.Auth import login_optional
@@ -20,9 +20,21 @@ class SearchEndpoint(flask_restful.Resource):
         try:
             results = elastic_index.search_resources(search)
         except elasticsearch.ElasticsearchException as e:
+            print(e)
             raise RestException(RestException.ELASTIC_ERROR)
 
-        search.total = results.hits.total
+        resources = []
+        filterredResults = []
+        for hit in results:
+            resource = ThrivResource.query.filter_by(id=hit.id).first()
+            if resource is not None and resource.user_may_view():
+                resources.append(resource)
+                filterredResults.append(hit)
+        search.total = len(resources)
+        search.resources = ThrivResourceSchema().dump(
+            resources, many=True).data
+
+        results.hits = filterredResults
         search.facets = []
         for facet_name in results.facets:
             if facet_name == "Approved":
@@ -43,11 +55,4 @@ class SearchEndpoint(flask_restful.Resource):
                         FacetCount(category, hit_count, is_selected))
                 search.facets.append(facet)
 
-        resources = []
-        for hit in results:
-            resource = ThrivResource.query.filter_by(id=hit.id).first()
-            if resource is not None:
-                resources.append(resource)
-        search.resources = ThrivResourceSchema().dump(
-            resources, many=True).data
         return SearchSchema().jsonify(search)

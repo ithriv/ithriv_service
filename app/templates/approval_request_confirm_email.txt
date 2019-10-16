@@ -1,6 +1,6 @@
 Dear {{ user.display_name }},
 
-We've received your request for approval of this resource:
+We've received your request for approval of this {{ resource.segment.name }}:
 
 Resource Name: {{ resource.name }}
 Resource URL: {{ site_url }}/#/resource/{{ resource.id }}

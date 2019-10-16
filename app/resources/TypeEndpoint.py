@@ -4,7 +4,9 @@ from marshmallow import ValidationError
 
 from app import RestException, db
 from app.models import ThrivType
+from app.models import ThrivSegment
 from app.resources.schema import ThrivTypeSchema
+from app.resources.schema import ThrivSegmentSchema
 
 
 class TypeEndpoint(flask_restful.Resource):
@@ -50,3 +52,12 @@ class TypeListEndpoint(flask_restful.Resource):
         except ValidationError as err:
             raise RestException(RestException.INVALID_OBJECT,
                                 details=load_result.errors)
+
+
+class SegmentListEndpoint(flask_restful.Resource):
+    
+    segmentTypesSchema = ThrivSegmentSchema(many=True)
+
+    def get(self):
+        segment_types = db.session.query(ThrivSegment).all()
+        return self.segmentTypesSchema.dump(segment_types)

@@ -41,7 +41,8 @@ services:
     environment:
       - ALLOWED_SENDER_DOMAINS=ithriv.org
     ports:
-      - 1587:587
+      - "25:25"
+    # - 1587:587
     networks:
       - ithriv_network
   ithriv_service:
