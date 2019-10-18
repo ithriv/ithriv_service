@@ -5,8 +5,6 @@ conn_info = fetch_connections_info()
 CORS_ENABLED = True
 
 SQLALCHEMY_LOG_LEVEL = logging.INFO
-ALEMBIC_PRINT_SQL = True
-DEBUG = True
 
 
 # SQLALCHEMY/ALEMBIC Settings
