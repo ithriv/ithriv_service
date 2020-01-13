@@ -89,6 +89,125 @@ API_URL = ''.join(['https:///service.', conn_info['ENV'], '.ithriv.org'])
 SITE_URL = ''.join(['https://portal.', conn_info['ENV'], '.ithriv.org'])
 FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
     SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
+API_UVARC_URL = 'https://api.uvarc.io/rest/v2/'
 PHOTO_SERVE_URL = 'https://ithriv.s3.aws.com'
 
 ENV_NAME = conn_info['ENV']
+
+JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
+    'Research Concierge Services': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Translational Research Ethics Consults (T-RECS)': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Electronic Data Capture': {
+        'UVA': 'UVA EDC|REDCap;MUSIC;OnCore;Forte;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Medical Record Data Pull': {
+        'UVA': 'UVA EMR|Clarity;OMOP;Caboodle;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Informatics Tools': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Community Studios': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Community Seed Grants': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Find Community Research Collaborators': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Find Team Science Research Collaborators': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Team Science Seed Grant': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Researcher Studios': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Biostats, Epidemiology, and Research Design': {
+        'UVA': 'UVA BERD and RKS|BERD;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'General Regulatory Support': {
+        'UVA': 'UVA BERD and RKS|RKS;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Recruitment Enhancement': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Multi-Center Study Management': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Investigator Initiated Trials': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'iTHRIV Scholars': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    }
+}
+
+
+def unique_jira_consult_projects():
+    unique_projects = []
+    for category in JIRA_PROJECT_TICKET_ROUTE_LOOKUP:
+        for institution in JIRA_PROJECT_TICKET_ROUTE_LOOKUP[category]:
+            unique_projects.append(
+                JIRA_PROJECT_TICKET_ROUTE_LOOKUP[category][institution].split('|')[
+                    0])
+    return tuple(unique_projects)
+
+
+UNIQUE_JIRA_CONSULT_PROJECTS = unique_jira_consult_projects()
