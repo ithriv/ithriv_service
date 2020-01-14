@@ -22,4 +22,4 @@ API_URL = 'http://localhost:5000'
 SITE_URL = 'http://localhost:4200'
 FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
     SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
-API_UVARC_URL = 'http://localhost:5001/rest/v2/'
+# API_UVARC_URL = 'http://localhost:5001/rest/v2/'
