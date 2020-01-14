@@ -101,12 +101,20 @@ def consult_request():
             return make_response(r.text, r.status_code)
         else:
             print(r.text)
-            return make_response(jsonify(
-                {
-                    "status": "error",
-                    "message": "Couldn't submit consult request, please contact iTHRIV system admin"
-                }
-            ), r.status_code)
+            if r.reason:
+                return make_response(jsonify(
+                    {
+                        "status": "error",
+                        "message": "Couldn't submit consult request: {}".format(r.reason)
+                    }
+                ), r.status_code)
+            else:
+                return make_response(jsonify(
+                    {
+                        "status": "error",
+                        "message": "Couldn't submit consult request, please contact iTHRIV system admin"
+                    }
+                ), r.status_code)
     except Exception as ex:
         print(str(ex))
         raise Exception(
