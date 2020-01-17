@@ -95,103 +95,103 @@ PHOTO_SERVE_URL = 'https://ithriv.s3.aws.com'
 ENV_NAME = conn_info['ENV']
 
 JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
-    'Research Concierge Services': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    'Provide Portal Feedback': {
+        'UVA': 'Portal Feedback|Portal Feedback;',
+        'Virginia Tech': 'Portal Feedback|Portal Feedback;',
+        'Carilion': 'Portal Feedback|Portal Feedback;',
+        'Inova': 'Portal Feedback|Portal Feedback;'
     },
     'Translational Research Ethics Consults (T-RECS)': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+        'UVA': 'iTHRIV|Research Staff;',
+        'Virginia Tech': 'iTHRIV| Research Staff;',
+        'Carilion': 'iTHRIV|Research Staff;',
+        'Inova': 'iTHRIV|Research Staff;'
     },
     'Electronic Data Capture': {
-        'UVA': 'UVA EDC|REDCap;MUSIC;OnCore;Forte;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'UVA': 'UVA EDC|REDCap',
+        'Virginia Tech': 'VT Research Concierge Services|REDCap;',
+        'Carilion': 'CC Informatics|REDCap;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Medical Record Data Pull': {
-        'UVA': 'UVA EMR|Clarity;OMOP;Caboodle;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'UVA': 'UVA EMR|OMOP;',
+        'Virginia Tech': 'CC Informatics|EMR;',
+        'Carilion': 'CC Informatics|EMR;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Informatics Tools': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'UVA': 'UVA Informatics Tools|Analytics;',
+        'Virginia Tech': 'CC Informatics|Analytics;',
+        'Carilion': 'CC Informatics|Analytics;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Community Studios': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+        'UVA': 'Community Studios|Community Studios;',
+        'Virginia Tech': 'Community Studios|Community Studios;',
+        'Carilion': 'Community Studios|Community Studios;',
+        'Inova': 'Community Studios|Community Studios;'
     },
     'Community Seed Grants': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+        'UVA': 'Community Seed Grants|Researcher;',
+        'Virginia Tech': 'Community Seed Grants|Researcher;',
+        'Carilion': 'Community Seed Grants|Researcher;',
+        'Inova': 'Community Seed Grants|Researcher;'
     },
     'Find Community Research Collaborators': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'UVA': 'UVA Community Collaborators|Community Collaborators;',
+        'Virginia Tech': 'VT Community Collaborators|Community Collaborators;',
+        'Carilion': 'CC Clinical Research Support|Community Collaborators;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Find Team Science Research Collaborators': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'UVA': 'UVA Translational Endeavors|Team Science Collaborators;',
+        'Virginia Tech': 'VT Research Concierge Services|Team Science Collaborators;',
+        'Carilion': 'CC Clinical Research Support|Team Science Collaborators;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Team Science Seed Grant': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+        'UVA': 'UVA Translational Endeavors|Seed Grants;',
+        'Virginia Tech': 'UVA Translational Endeavors|Seed Grants;',
+        'Carilion': 'UVA Translational Endeavors|Seed Grants;',
+        'Inova': 'UVA Translational Endeavors|Seed Grants;'
     },
     'Researcher Studios': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'UVA': 'UVA Translational Endeavors|Studios;',
+        'Virginia Tech': 'VT Research Concierge Services|Studios;',
+        'Carilion': 'CC Clinical Research Support|Studios;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Biostats, Epidemiology, and Research Design': {
         'UVA': 'UVA BERD and RKS|BERD;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'VT Research Concierge Services|BERD;',
+        'Carilion': 'CC BERD|BERD;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'General Regulatory Support': {
         'UVA': 'UVA BERD and RKS|RKS;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'VT Research Concierge Services|RKS;',
+        'Carilion': 'CC RKS|RKS;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Recruitment Enhancement': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'UVA': 'UVA Recruitment|Recruitment;',
+        'Virginia Tech': 'VT Research Concierge Services| Recruitment;',
+        'Carilion': 'CC Clinical Research Support| Recruitment;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
-    'Multi-Center Study Management': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
-    },
-    'Investigator Initiated Trials': {
-        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+    'Investigator Initiated or Multi-Center Study Management': {
+        'UVA': 'UVA TIN|Multi-Center Management;',
+        'Virginia Tech': 'VT Research Concierge Services |Multi-Center Management;',
+        'Carilion': 'CC Clinical Research Support|Multi-Center Management;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'iTHRIV Scholars': {
+        'UVA': 'UVA KL2|Scholar Applications;',
+        'Virginia Tech': 'VT KL2|Scholar Applications;',
+        'Carilion': 'VT KL2|Scholar Applications;',
+        'Inova': 'UVA KL2|Scholar Applications;'
+    },
+    'Other': {
         'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
         'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
         'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
