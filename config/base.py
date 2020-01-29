@@ -169,13 +169,13 @@ JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
     },
     'Recruitment Enhancement': {
         'UVA': 'UVA Recruitment|Recruitment;',
-        'Virginia Tech': 'VT Research Concierge Services| Recruitment;',
-        'Carilion': 'CC Clinical Research Support| Recruitment;',
+        'Virginia Tech': 'VT Research Concierge Services|Recruitment;',
+        'Carilion': 'CC Clinical Research Support|Recruitment;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Investigator Initiated or Multi-Center Study Management': {
         'UVA': 'UVA TIN|Multi-Center Management;',
-        'Virginia Tech': 'VT Research Concierge Services |Multi-Center Management;',
+        'Virginia Tech': 'VT Research Concierge Services|Multi-Center Management;',
         'Carilion': 'CC Clinical Research Support|Multi-Center Management;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
