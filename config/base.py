@@ -101,12 +101,6 @@ JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
         'Carilion': 'Portal Feedback|Portal Feedback;',
         'Inova': 'Portal Feedback|Portal Feedback;'
     },
-    'Translational Research Ethics Consults (T-RECS)': {
-        'UVA': 'iTHRIV|Research Staff;',
-        'Virginia Tech': 'iTHRIV| Research Staff;',
-        'Carilion': 'iTHRIV|Research Staff;',
-        'Inova': 'iTHRIV|Research Staff;'
-    },
     'Electronic Data Capture': {
         'UVA': 'UVA EDC|REDCap',
         'Virginia Tech': 'VT Research Concierge Services|REDCap;',
@@ -114,7 +108,7 @@ JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Medical Record Data Pull': {
-        'UVA': 'UVA EMR|OMOP;',
+        'UVA': 'UVA EMR|EMR;',
         'Virginia Tech': 'CC Informatics|EMR;',
         'Carilion': 'CC Informatics|EMR;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
