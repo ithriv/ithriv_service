@@ -89,6 +89,119 @@ API_URL = ''.join(['https:///service.', conn_info['ENV'], '.ithriv.org'])
 SITE_URL = ''.join(['https://portal.', conn_info['ENV'], '.ithriv.org'])
 FRONTEND_AUTH_CALLBACK, FRONTEND_EMAIL_RESET, FRONTEND_EMAIL_CONFIRM = auth_callback_url_tuple(
     SITE_URL, '/#/session', '/#/reset_password/', '/#/login/')
+API_UVARC_URL = 'https://api.uvarc.io/rest/v2/'
 PHOTO_SERVE_URL = 'https://ithriv.s3.aws.com'
 
 ENV_NAME = conn_info['ENV']
+
+JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
+    'Provide Portal Feedback': {
+        'UVA': 'Portal Feedback|Portal Feedback;',
+        'Virginia Tech': 'Portal Feedback|Portal Feedback;',
+        'Carilion': 'Portal Feedback|Portal Feedback;',
+        'Inova': 'Portal Feedback|Portal Feedback;'
+    },
+    'Electronic Data Capture': {
+        'UVA': 'UVA EDC|REDCap',
+        'Virginia Tech': 'VT Research Concierge Services|REDCap;',
+        'Carilion': 'CC Informatics|REDCap;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Medical Record Data Pull': {
+        'UVA': 'UVA EMR|EMR;',
+        'Virginia Tech': 'CC Informatics|EMR;',
+        'Carilion': 'CC Informatics|EMR;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Informatics Tools': {
+        'UVA': 'UVA Informatics Tools|Analytics;',
+        'Virginia Tech': 'CC Informatics|Analytics;',
+        'Carilion': 'CC Informatics|Analytics;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Community Studios': {
+        'UVA': 'Community Studios|Community Studios;',
+        'Virginia Tech': 'Community Studios|Community Studios;',
+        'Carilion': 'Community Studios|Community Studios;',
+        'Inova': 'Community Studios|Community Studios;'
+    },
+    'Community Seed Grants': {
+        'UVA': 'Community Seed Grants|Researcher;',
+        'Virginia Tech': 'Community Seed Grants|Researcher;',
+        'Carilion': 'Community Seed Grants|Researcher;',
+        'Inova': 'Community Seed Grants|Researcher;'
+    },
+    'Find Community Research Collaborators': {
+        'UVA': 'UVA Community Collaborators|Community Collaborators;',
+        'Virginia Tech': 'VT Community Collaborators|Community Collaborators;',
+        'Carilion': 'CC Clinical Research Support|Community Collaborators;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Find Team Science Research Collaborators': {
+        'UVA': 'UVA Translational Endeavors|Team Science Collaborators;',
+        'Virginia Tech': 'VT Research Concierge Services|Team Science Collaborators;',
+        'Carilion': 'CC Clinical Research Support|Team Science Collaborators;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Team Science Seed Grant': {
+        'UVA': 'UVA Translational Endeavors|Seed Grants;',
+        'Virginia Tech': 'UVA Translational Endeavors|Seed Grants;',
+        'Carilion': 'UVA Translational Endeavors|Seed Grants;',
+        'Inova': 'UVA Translational Endeavors|Seed Grants;'
+    },
+    'Researcher Studios': {
+        'UVA': 'UVA Translational Endeavors|Studios;',
+        'Virginia Tech': 'VT Research Concierge Services|Studios;',
+        'Carilion': 'CC Clinical Research Support|Studios;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Biostats, Epidemiology, and Research Design': {
+        'UVA': 'UVA BERD and RKS|BERD;',
+        'Virginia Tech': 'VT Research Concierge Services|BERD;',
+        'Carilion': 'CC BERD|BERD;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'General Regulatory Support': {
+        'UVA': 'UVA BERD and RKS|RKS;',
+        'Virginia Tech': 'VT Research Concierge Services|RKS;',
+        'Carilion': 'CC RKS|RKS;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Recruitment Enhancement': {
+        'UVA': 'UVA Recruitment|Recruitment;',
+        'Virginia Tech': 'VT Research Concierge Services|Recruitment;',
+        'Carilion': 'CC Clinical Research Support|Recruitment;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'Investigator Initiated or Multi-Center Study Management': {
+        'UVA': 'UVA TIN|Multi-Center Management;',
+        'Virginia Tech': 'VT Research Concierge Services|Multi-Center Management;',
+        'Carilion': 'CC Clinical Research Support|Multi-Center Management;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    },
+    'iTHRIV Scholars': {
+        'UVA': 'UVA KL2|Scholar Applications;',
+        'Virginia Tech': 'VT KL2|Scholar Applications;',
+        'Carilion': 'VT KL2|Scholar Applications;',
+        'Inova': 'UVA KL2|Scholar Applications;'
+    },
+    'Other': {
+        'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'VT Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'CC Research Concierge Services|iTHRIV Services;',
+        'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
+    }
+}
+
+
+def unique_jira_consult_projects():
+    unique_projects = []
+    for category in JIRA_PROJECT_TICKET_ROUTE_LOOKUP:
+        for institution in JIRA_PROJECT_TICKET_ROUTE_LOOKUP[category]:
+            unique_projects.append(
+                JIRA_PROJECT_TICKET_ROUTE_LOOKUP[category][institution].split('|')[
+                    0])
+    return tuple(unique_projects)
+
+
+UNIQUE_JIRA_CONSULT_PROJECTS = unique_jira_consult_projects()
