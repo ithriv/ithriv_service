@@ -187,8 +187,8 @@ JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
     },
     'Other': {
         'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'VT Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'CC Research Concierge Services|iTHRIV Services;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     }
 }
