@@ -101,12 +101,6 @@ JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
         'Carilion': 'Portal Feedback|Portal Feedback;',
         'Inova': 'Portal Feedback|Portal Feedback;'
     },
-    'Translational Research Ethics Consults (T-RECS)': {
-        'UVA': 'iTHRIV|Research Staff;',
-        'Virginia Tech': 'iTHRIV| Research Staff;',
-        'Carilion': 'iTHRIV|Research Staff;',
-        'Inova': 'iTHRIV|Research Staff;'
-    },
     'Electronic Data Capture': {
         'UVA': 'UVA EDC|REDCap',
         'Virginia Tech': 'VT Research Concierge Services|REDCap;',
@@ -114,7 +108,7 @@ JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Medical Record Data Pull': {
-        'UVA': 'UVA EMR|OMOP;',
+        'UVA': 'UVA EMR|EMR;',
         'Virginia Tech': 'CC Informatics|EMR;',
         'Carilion': 'CC Informatics|EMR;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
@@ -175,13 +169,13 @@ JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
     },
     'Recruitment Enhancement': {
         'UVA': 'UVA Recruitment|Recruitment;',
-        'Virginia Tech': 'VT Research Concierge Services| Recruitment;',
-        'Carilion': 'CC Clinical Research Support| Recruitment;',
+        'Virginia Tech': 'VT Research Concierge Services|Recruitment;',
+        'Carilion': 'CC Clinical Research Support|Recruitment;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
     'Investigator Initiated or Multi-Center Study Management': {
         'UVA': 'UVA TIN|Multi-Center Management;',
-        'Virginia Tech': 'VT Research Concierge Services |Multi-Center Management;',
+        'Virginia Tech': 'VT Research Concierge Services|Multi-Center Management;',
         'Carilion': 'CC Clinical Research Support|Multi-Center Management;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     },
@@ -193,8 +187,8 @@ JIRA_PROJECT_TICKET_ROUTE_LOOKUP = {
     },
     'Other': {
         'UVA': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Virginia Tech': 'UVA Research Concierge Services|iTHRIV Services;',
-        'Carilion': 'UVA Research Concierge Services|iTHRIV Services;',
+        'Virginia Tech': 'VT Research Concierge Services|iTHRIV Services;',
+        'Carilion': 'CC Research Concierge Services|iTHRIV Services;',
         'Inova': 'UVA Research Concierge Services|iTHRIV Services;'
     }
 }
