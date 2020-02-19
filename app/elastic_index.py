@@ -1,10 +1,12 @@
+import json
 import logging
-from typing import List, Any, Union
+from typing import Any, List, Union
 
 import elasticsearch_dsl
+import flask
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import Boolean, DocType, Date, Keyword, Text, \
-    Index, analyzer, Integer, Q, tokenizer
+from elasticsearch_dsl import (Boolean, Date, DocType, Index, Integer, Keyword,
+                               Q, Text, analyzer, tokenizer)
 from elasticsearch_dsl.connections import connections
 from elasticsearch_dsl.query import Query
 from flask import g
@@ -108,13 +110,23 @@ class ElasticIndex:
         self.resource_index.flush()
 
     def search_resources(self, search):
+        filters = {}
+        for index in range(0, len(search.filters)):
+            if search.filters[index].field in filters:
+                filters[search.filters[index].field].append(
+                    search.filters[index].value)
+            else:
+                filters[search.filters[index].field] = [
+                    search.filters[index].value]
         resource_search = ResourceSearch(
             search.query,
-            search.jsonFilters(),
+            filters,
             search.sort,
             index=self.resource_index_name)
+
         resource_search = resource_search[search.start:search.start +
                                           search.size]
+
         return resource_search.execute()
 
 
@@ -180,7 +192,9 @@ class ResourceSearch(elasticsearch_dsl.FacetedSearch):
 
             if g.user.role == 'Admin':
                 criteria.append(
-                    Q('term', private=False)
+                    Q('bool', must_not=[
+                        Q('term', private=True)
+                    ])
                 )
 
                 if g.user.institution_id is not None:
@@ -190,12 +204,12 @@ class ResourceSearch(elasticsearch_dsl.FacetedSearch):
                             Q('term', institution_id=g.user.institution_id)
                         ])
                     )
-
-            if g.user.role == 'User':
+            elif g.user.role == 'User':
                 criteria.append(
                     Q('bool', must=[
-                        Q('term', approved='Approved'),
-                        Q('term', private=False)
+                        Q('term', approved='Approved')
+                    ], must_not=[
+                        Q('term', private=True)
                     ])
                 )
 
@@ -210,8 +224,9 @@ class ResourceSearch(elasticsearch_dsl.FacetedSearch):
         else:
             criteria.append(
                 Q('bool', must=[
-                    Q('term', approved='Approved'),
-                    Q('term', private=False)
+                    Q('term', approved='Approved')
+                ], must_not=[
+                    Q('term', private=True)
                 ])
             )
 
