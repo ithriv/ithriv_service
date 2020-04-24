@@ -32,3 +32,4 @@ id,name,local_file,type
 209,Research Cores Type,type/research_cores.svg,Research Cores and Labs
 210,Research Resource Type,type/research_resource.svg,Research Resource
 211,Learning Shot Type,type/learning_shots.svg,Learning Shot
+212,Researcher Connection,researcher_connection.svg,
