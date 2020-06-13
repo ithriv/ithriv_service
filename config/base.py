@@ -37,7 +37,7 @@ ALEMBIC_PRINT_SQL = False
 
 # Amazon S3 Bucket for storing images.
 S3 = {
-    'bucket': 'ithriv-media',
+    'bucket': 'ithriv-media-static',
     'base_url': ''.join(['https://', conn_info["AMAZON_S3"]["HOSTS"][0]]),
     'base_path': conn_info['ENV']
 }
