@@ -37,7 +37,7 @@ install:
     else
     docker build --build-arg BUILD_ENV --build-arg ES_ENV_HOST -f docker/Dockerfile --no-cache -t ithriv/ithriv_service:"$TRAVIS_BRANCH" . || exit 1 ;
     docker push ithriv/ithriv_service:"$TRAVIS_BRANCH" || exit 1 ;
-    aws sqs send-message --queue-url 'https://queue.amazonaws.com/474683445819/ithriv-updates' --message-body ithriv/ithriv_service:$TRAVIS_BRANCH || exit 1;
+    aws sqs send-message --queue-url 'https://sqs.us-east-1.amazonaws.com/836779629086/ithriv-updates' --message-body ithriv/ithriv_service:$TRAVIS_BRANCH || exit 1;
     fi
 
 notifications:
