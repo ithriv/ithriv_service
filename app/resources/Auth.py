@@ -21,7 +21,8 @@ def login(user_info):
             print("ENVIRON -> {} : {}".format(key, request.environ[key]))
         for key in user_info:
             print("USER_INFO -> {} : {}".format(key, user_info[key]))
-    if app.config["DEVELOPMENT"]:
+    if ("eppn" not in user_info or user_info[
+            "eppn"] is None or len(user_info["eppn"].lstrip()) == 0) and app.config["DEVELOPMENT"]:
         eppn = app.config["SSO_DEVELOPMENT_EPPN"]
         email = eppn
     else:
