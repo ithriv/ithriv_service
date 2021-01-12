@@ -33,7 +33,7 @@ jobs:
       - 
         name: Extract branch name
         shell: bash
-        run: echo "##[set-output name=branch;]quay.io/ithriv/ithriv-service:$(echo ${GITHUB_REF##*/})"
+        run: echo "##[set-output name=branch;]quay.io/ithriv/ithriv_service:$(echo ${GITHUB_REF##*/})"
         id: extract_branch
       -
         name: Set up Docker Buildx
@@ -56,7 +56,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ steps.extract_branch.outputs.branch }}
-            quay.io/ithriv/ithriv-service:latest
+            quay.io/ithriv/ithriv_service:latest
           build-args: |
             ES_ENV_HOST=ithriv_es
             BUILD_ENV=prod
